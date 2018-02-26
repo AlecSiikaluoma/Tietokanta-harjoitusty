@@ -11,6 +11,8 @@ import com.company.tikapeharjoitustyo2.domain.RaakaAine;
 import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import spark.ModelAndView;
@@ -123,9 +125,21 @@ public class Main {
         Spark.get("/smoothiet/:id", (req, res) -> {
             Integer id = Integer.parseInt(req.params(":id"));
             
+            List<AnnosRaakaAine> aineet = annoksetAinekset.findAll(id);
+            
+            Collections.sort(aineet, new Comparator<AnnosRaakaAine>() {
+                public int compare(AnnosRaakaAine o1, AnnosRaakaAine o2) {
+                    if (o1.getJarjestys() == o2.getJarjestys()) {
+                        return 0;
+                    }
+                    return o1.getJarjestys() < o2.getJarjestys() ? -1 : 1;
+                }
+            });
+            
+            
             HashMap map = new HashMap<>();
             map.put("annos", annokset.findOne(id));
-            map.put("ainekset", annoksetAinekset.findAll(id));
+            map.put("ainekset", aineet);
            
 
             return new ModelAndView(map, "annos");
