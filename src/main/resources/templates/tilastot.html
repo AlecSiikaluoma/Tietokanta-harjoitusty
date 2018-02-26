@@ -1,0 +1,24 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Tilastot</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>Tilastot</h2>
+        
+        <ul>
+            <li th:each="aine : ${tilastot}">
+                <p><span th:text="${aine.value}"></span> reseptiä sisältää ainesta: <span th:text="${aine.key.nimi}"></span> </p>
+            </li>
+        </ul>
+        
+        <ul>
+            <li><a href="smoothiet">Luo uusi smoothie</a></li>
+            <li><a href="ainekset">Tarkastele ja lisää aineksia</a></li>
+            <li><a href="../">Smoothielistaukseen</a></li>
+        </ul>
+        
+    </body>
+</html>

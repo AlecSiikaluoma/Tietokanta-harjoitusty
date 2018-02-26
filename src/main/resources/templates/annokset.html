@@ -1,0 +1,67 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Smoothiet</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>Smoothiet</h2>
+        
+        <ul>
+            <li th:each="annos : ${annokset}">
+                <a th:href="@{~/smoothiet/{id}(id=${annos.id})}" th:text="${annos.nimi}"></a>
+                <a th:href="@{~/smoothiet/{id}/poista(id=${annos.id})}">(poista)</a>
+            </li>
+        </ul>
+        
+        <h4>Lisää uusi</h4>
+        <form method="POST" action="/smoothiet">
+            Smoothien nimi:
+            <br>
+            <input name="nimi" type="text">
+            <br>
+            <input value="Lisää" type="submit">        
+        </form>
+        <h4>Lisää raaka-aineita</h4>
+        <form method="POST" action="/smoothiet/aines">
+            Smoothien nimi:
+            <br>
+            <select name="smoothie">
+                <option th:each="annos : ${annokset}" th:value="${annos.id}" th:text="${annos.nimi}">
+                    annos
+                </option>
+            </select>
+            <br>
+            Lisättävä raaka-aine:
+            <br>
+            <select name="raakaAine">
+                <option th:each="aines : ${ainekset}" th:value="${aines.id}" th:text="${aines.nimi}">
+                    aines
+                </option>
+            </select>
+            <br>
+            Järjestys
+            <br>
+            <input name="jarjestys" type="text">
+            <br>
+            Määrä
+            <br>
+            <input name="maara" type="text">
+            <br>
+            Ohje
+            <br>
+            <input name="ohje" type="text">
+            <br>
+            <input value="Lisää" type="submit">        
+        </form>
+        
+        
+        <ul>
+            <li>
+                <a href="../">Smoothielistaukseen</a>
+            </li>
+        </ul>
+    </body>
+</html>
+
