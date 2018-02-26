@@ -17,12 +17,17 @@ public class Database {
         this.databaseAddress = databaseAddress;
     }
 
-    public static Connection getConnection() throws Exception {
-        String dbUrl = System.getenv("JDBC_DATABASE_URL");
-        if (dbUrl != null && dbUrl.length() > 0) {
-            return DriverManager.getConnection(dbUrl);
-        }
+    public static Connection getConnection() {
+        try {
+            String dbUrl = System.getenv("JDBC_DATABASE_URL");
+            if (dbUrl != null && dbUrl.length() > 0) {
+                return DriverManager.getConnection(dbUrl);
+            }
 
-        return DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
+            return DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
+        } catch(Exception e) {
+            System.out.println("Can't connect to DB");
+            return null;
+        }
     }
 }
